@@ -6,6 +6,7 @@ import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 import sheridan.caluagd.todolist_assignment3.domain.ToDoObject
+import java.util.Date
 
 
 @Dao
@@ -16,6 +17,8 @@ interface ToDoDao {
     @Query("SELECT * FROM ToDo ORDER BY isDone DESC")
     fun getAllToDo(): Flow<List<LocalToDoObject>>
 
+    @Query("DELETE FROM ToDO WHERE isDone = True")
+    suspend fun finishDoneToDo(): Flow<List<LocalToDoObject>>
     //Update
 
     @Update
@@ -32,9 +35,13 @@ interface ToDoDao {
     suspend fun updateMemo(memo: String, id: Int)
     //priority
     @Query("UPDATE ToDo SET priority = :_string WHERE id = :id")
-    suspend fun updatePriority(_string: Int, id: Int)
+    suspend fun updatePriority(_string: Float, id: Int)
 
+    @Query("UPDATE ToDo SET due_date = :due WHERE id = :id")
+    suspend fun updateDue(due: Date, id: Int)
 
+    @Query("UPDATE ToDo SET time_stamp = :date WHERE id = :id")
+    suspend fun updateTime(date: Date, id: Int)
 
     //Delete
     @Delete

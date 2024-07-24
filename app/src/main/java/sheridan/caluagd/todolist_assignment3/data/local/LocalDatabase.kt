@@ -9,4 +9,8 @@ import androidx.room.TypeConverters
 abstract class LocalDatabase : RoomDatabase() {
 
     abstract fun productDao(): ToDoDao
+
+
 }
+
+

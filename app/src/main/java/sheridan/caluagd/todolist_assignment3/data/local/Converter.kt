@@ -23,6 +23,8 @@ class Converters {
 
     @TypeConverter
     fun fromIntToCondition(code: Int): Category {
+        
+
         return Category.entries[code]
     }
 }

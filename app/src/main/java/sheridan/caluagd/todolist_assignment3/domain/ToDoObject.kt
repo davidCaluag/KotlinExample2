@@ -10,8 +10,9 @@ data class ToDoObject(
     val id: Int = 0,
     val title : String = "No Title",
     val memo : String = "No Memo",
-    val priority : Int = 1,
+    val priority : Float = 0F,
     val category : Category = Category.SOMETHING_ELSE,
     val isDone : Boolean = false,
-    val date: Date = Date()
+    val date: Date = Date(),
+    val due: Date = Date()
 )

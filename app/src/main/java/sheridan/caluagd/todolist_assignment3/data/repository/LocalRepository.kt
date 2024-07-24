@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import sheridan.caluagd.todolist_assignment3.domain.ToDoObject
 import sheridan.caluagd.todolist_assignment3.data.local.LocalToDoObject
 import sheridan.caluagd.todolist_assignment3.data.local.ToDoDao
+import java.util.Date
 
 @OptIn(DelicateCoroutinesApi::class)
 class LocalRepository(
@@ -27,6 +28,7 @@ class LocalRepository(
         ToDoDao.getAllToDo().map{
             list ->list.map{localItem -> localItem.toToDo()}
         }.flowOn(dispatcher)
+
 
     override suspend fun updateToDo(toDo: ToDoObject){
         externalScope.launch(dispatcher){
@@ -52,9 +54,20 @@ class LocalRepository(
         }
     }
 
-    override suspend fun updatePriority(priority: Int, id: Int){
+    override suspend fun updatePriority(_string: Float, id: Int){
         externalScope.launch(dispatcher){
-            ToDoDao.updatePriority(priority, id)
+            ToDoDao.updatePriority(_string, id)
+        }
+    }
+    override suspend fun updateDue(due: Date, id: Int){
+        externalScope.launch(dispatcher){
+            ToDoDao.updateDue(due, id)
+        }
+    }
+
+    override suspend fun updateTime(date: Date, id: Int){
+        externalScope.launch(dispatcher){
+            ToDoDao.updateTime(date, id)
         }
     }
 
@@ -64,12 +77,18 @@ class LocalRepository(
         }
     }
 
+
     override suspend fun deleteToDoById(id: Int){
         externalScope.launch(dispatcher){
             ToDoDao.deleteToDoById(id)
         }
     }
 
+    override suspend fun finishDoneToDo(){
+        externalScope.launch(dispatcher) {
+            ToDoDao.finishDoneToDo()
+        }
+    }
 }
 
 
@@ -81,7 +100,8 @@ fun LocalToDoObject.toToDo(): ToDoObject = ToDoObject(
     priority = this.priority,
     category = this.category,
     isDone = this.isDone,
-    date = this.date
+    date = this.date,
+    due = this.due
 )
 
 fun ToDoObject.toLocal(): LocalToDoObject = LocalToDoObject(
@@ -91,5 +111,6 @@ fun ToDoObject.toLocal(): LocalToDoObject = LocalToDoObject(
     priority = this.priority,
     category = this.category,
     isDone = this.isDone,
-    date = this.date
+    date = this.date,
+    due = this.due
 )
