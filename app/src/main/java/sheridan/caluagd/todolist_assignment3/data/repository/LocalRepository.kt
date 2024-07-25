@@ -84,11 +84,11 @@ class LocalRepository(
         }
     }
 
-    override suspend fun finishDoneToDo(){
-        externalScope.launch(dispatcher) {
-            ToDoDao.finishDoneToDo()
-        }
-    }
+//    override suspend fun finishDoneToDo(){
+//        externalScope.launch(dispatcher) {
+//            ToDoDao.finishDoneToDo()
+//        }
+//    }
 }
 
 

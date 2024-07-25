@@ -2,7 +2,6 @@ package sheridan.caluagd.todolist_assignment3
 
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import sheridan.caluagd.todolist_assignment3.navigation.ProductListNavHost

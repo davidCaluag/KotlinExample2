@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">ToDoList_Assignment3</string>
-    <string name="list_title">To-Do List</string>
-    <string name="edit_todo_title">To-Do Edit</string>
+    <string name="list_title">ToDo List</string>
+    <string name="edit_todo_title">ToDo Edit</string>
 </resources>

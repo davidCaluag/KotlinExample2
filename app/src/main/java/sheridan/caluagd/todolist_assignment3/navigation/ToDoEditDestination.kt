@@ -1,7 +1,6 @@
-package sheridan.caluagd.todolist_assignment3.front.edit
+package sheridan.caluagd.todolist_assignment3.navigation
 
 import sheridan.caluagd.todolist_assignment3.R
-import sheridan.caluagd.todolist_assignment3.navigation.NavigationDestination
 
 object ToDoEditDestination : NavigationDestination {
     override val route = "todo_edit"

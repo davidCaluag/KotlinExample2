@@ -5,7 +5,6 @@ import androidx.room.Delete
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
-import sheridan.caluagd.todolist_assignment3.domain.ToDoObject
 import java.util.Date
 
 
@@ -48,7 +47,6 @@ interface ToDoDao {
     suspend fun deleteProduct(toDo: LocalToDoObject)
     @Query("DELETE FROM ToDo WHERE id = :id")
     suspend fun deleteToDoById(id: Int)
-    @Query("DELETE FROM ToDO WHERE isDone = True")
-    suspend fun finishDoneToDo()
+
 
 }

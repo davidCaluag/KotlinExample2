@@ -1,7 +1,6 @@
 package sheridan.caluagd.todolist_assignment3.data.repository
 
 import kotlinx.coroutines.flow.Flow
-import sheridan.caluagd.todolist_assignment3.data.local.LocalToDoObject
 import sheridan.caluagd.todolist_assignment3.domain.ToDoObject
 import java.util.Date
 
@@ -26,6 +25,6 @@ interface ToDoRepository {
 
     suspend fun deleteToDoById(id: Int)
 
-    suspend fun finishDoneToDo()
+//    suspend fun finishDoneToDo()
 
 }

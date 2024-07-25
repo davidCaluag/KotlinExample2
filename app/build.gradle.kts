@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
+
     implementation(libs.androidx.navigation.compose)
 
     implementation(libs.androidx.room)
@@ -84,6 +85,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 }
 
+// Allow references to generated code
 kapt {
     correctErrorTypes = true
 }
