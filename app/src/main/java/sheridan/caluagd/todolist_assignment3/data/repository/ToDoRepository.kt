@@ -10,13 +10,13 @@ interface ToDoRepository {
 
     suspend fun updateToDo(toDo: ToDoObject)
 
-    suspend fun updateProgress(_string: Boolean, id: Int)
+    suspend fun updateProgress(boolean: Boolean, id: Int)
 
     suspend fun updateTitle(title: String, id: Int)
 
     suspend fun updateMemo(memo: String, id: Int)
 
-    suspend fun updatePriority(_string: Float, id: Int)
+    suspend fun updatePriority(float: Float, id: Int)
 
     suspend fun updateTime(date: Date, id: Int)
 

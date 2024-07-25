@@ -36,9 +36,9 @@ class LocalRepository(
         }.join()
     }
 
-    override suspend fun updateProgress(_string: Boolean, id: Int){
+    override suspend fun updateProgress(boolean: Boolean, id: Int){
         externalScope.launch(dispatcher){
-            ToDoDao.updateProgress(_string, id)
+            ToDoDao.updateProgress(id, boolean)
         }.join()
     }
 
@@ -50,13 +50,13 @@ class LocalRepository(
 
     override suspend fun updateMemo(memo: String, id: Int){
         externalScope.launch(dispatcher){
-            ToDoDao.updateMemo(memo, id)
+            ToDoDao.updateMemo(id, memo)
         }
     }
 
-    override suspend fun updatePriority(_string: Float, id: Int){
+    override suspend fun updatePriority(float: Float, id: Int){
         externalScope.launch(dispatcher){
-            ToDoDao.updatePriority(_string, id)
+            ToDoDao.updatePriority(id, float)
         }
     }
     override suspend fun updateDue(due: Date, id: Int){
@@ -73,7 +73,7 @@ class LocalRepository(
 
     override suspend fun deleteProduct(toDo: ToDoObject){
         externalScope.launch(dispatcher){
-            ToDoDao.deleteProduct(toDo)
+            ToDoDao.deleteProduct(toDo.toLocal())
         }
     }
 

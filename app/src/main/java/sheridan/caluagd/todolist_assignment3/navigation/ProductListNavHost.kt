@@ -7,7 +7,10 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import sheridan.caluagd.todolist_assignment3.front.edit.ToDoEditDestination
+import sheridan.caluagd.todolist_assignment3.front.edit.ToDoEditScreen
 import sheridan.caluagd.todolist_assignment3.front.list.ListViewModel
+import sheridan.caluagd.todolist_assignment3.front.list.ToDoListScreen
 
 
 @Composable
@@ -19,6 +22,11 @@ fun ProductListNavHost(navHostController: NavHostController, modifier: Modifier 
 
         composable(route = ToDoListDestination.route){
             val viewModel: ListViewModel = hiltViewModel()
+            ToDoListScreen(navigateToAdd = { navHostController.navigate(ToDoEditDestination.route) }, navigateToEdit = {id -> navHostController.navigate("${ToDoEditDestination.route}/${id}") }, viewModel = viewModel)
+
+        }
+
+        composable(route = ToDoEditDestination.route) {
 
         }
 
