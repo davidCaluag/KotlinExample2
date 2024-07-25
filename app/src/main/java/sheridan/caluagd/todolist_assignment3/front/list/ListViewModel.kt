@@ -32,11 +32,11 @@ class ListViewModel @Inject constructor(
         }
     }
 
-//    fun deleteDoneToDo(){
-//        viewModelScope.launch {
-//            val list = toDoRepository.finishDoneToDo()
-//        }
-//    }
+    fun deleteDoneToDo(){
+        viewModelScope.launch {
+            val list = toDoRepository.finishDoneToDo()
+        }
+    }
 
     companion object{
         private const val TIMEOUT = 5_000L

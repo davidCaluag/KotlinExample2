@@ -11,6 +11,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
@@ -60,33 +62,39 @@ fun ToDoListScreen(
             {
                 Icon(imageVector = Icons.Filled.Add, contentDescription = "Add ToDo")
             }
-        }
+        },
     ){
         bleh ->
-        ListBody(toDoList = listUiState.toDoList,
+        Column(){
+            ListBody(toDoList = listUiState.toDoList,
                 onItemClick = navigateToEdit,
+                deleteFinishedToDo = viewModel::deleteDoneToDo,
                 onToggleSelect = viewModel::toggleProgress,
-                modifier = modifier.padding(bleh)
+                modifier = modifier
+                    .padding(bleh)
                     .fillMaxSize()
-        )
+            )
+        }
 
-//        Row(){
-//            Text("Delete finished To-Do")
-//            Button(onClick = { viewModel.deleteDoneToDo() }){
-//                Icon(imageVector = Icons.Filled.Delete, contentDescription = "Delete")
-//            }
-//        }
     }
 }
 
 @Composable
 fun ListBody(toDoList: List<ToDoListItemModel>,
+             deleteFinishedToDo:()-> Unit,
              onItemClick: (Int) -> Unit,
              onToggleSelect: (ToDoListItemModel) -> Unit,
              modifier: Modifier = Modifier)
 {
 
     Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = modifier){
+
+        Row(){
+            Button(onClick = { deleteFinishedToDo() }){
+                Icon(imageVector = Icons.Filled.Delete, contentDescription = "Delete")
+            }
+        }
+
         if(toDoList.isEmpty()){
             Text(text = "Empty list.", textAlign = TextAlign.Center, style = MaterialTheme.typography.titleLarge)
         }else{

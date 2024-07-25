@@ -2,9 +2,13 @@ package sheridan.caluagd.todolist_assignment3.data.local
 
 import androidx.room.Dao
 import androidx.room.Delete
+import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Transaction
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
+import sheridan.caluagd.todolist_assignment3.data.repository.toLocal
+import sheridan.caluagd.todolist_assignment3.domain.ToDoObject
 import java.util.Date
 
 
@@ -22,6 +26,16 @@ interface ToDoDao {
 
     @Update
     suspend fun updateToDo(toDo: LocalToDoObject)
+
+    @Query("SELECT MAX(id) FROM ToDo")
+    suspend fun getMaxId(): Int
+
+    @Transaction
+    suspend fun addNewObject(): Int{ //Return the id
+        val maxId = getMaxId()
+        insertToDo(ToDoObject(id = maxId).toLocal())
+        return maxId
+    }
 
     //the checklist (isDone) PROBLEM
     @Query("UPDATE ToDo SET isDone =:isDone WHERE id =:id")
@@ -45,8 +59,16 @@ interface ToDoDao {
     //Delete
     @Delete
     suspend fun deleteProduct(toDo: LocalToDoObject)
+
     @Query("DELETE FROM ToDo WHERE id = :id")
     suspend fun deleteToDoById(id: Int)
+
+    @Query("DELETE FROM ToDo WHERE isDone = true")
+    suspend fun finishDoneToDo()
+
+
+    @Insert
+    suspend fun insertToDo(toDo: LocalToDoObject)
 
 
 }

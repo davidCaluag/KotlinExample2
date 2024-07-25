@@ -6,6 +6,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import sheridan.caluagd.todolist_assignment3.front.edit.ToDoEditScreen
 import sheridan.caluagd.todolist_assignment3.front.list.ListViewModel
 import sheridan.caluagd.todolist_assignment3.front.list.ToDoListScreen
 
@@ -23,7 +24,7 @@ fun ProductListNavHost(navHostController: NavHostController, modifier: Modifier 
         }
 
         composable(route = ToDoEditDestination.route) {
-
+            ToDoEditScreen()
         }
 
     }

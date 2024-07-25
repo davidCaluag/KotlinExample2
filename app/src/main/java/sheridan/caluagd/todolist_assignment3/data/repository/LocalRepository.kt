@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import sheridan.caluagd.todolist_assignment3.domain.ToDoObject
 import sheridan.caluagd.todolist_assignment3.data.local.LocalToDoObject
 import sheridan.caluagd.todolist_assignment3.data.local.ToDoDao
@@ -28,6 +29,10 @@ class LocalRepository(
         ToDoDao.getAllToDo().map{
             list ->list.map{localItem -> localItem.toToDo()}
         }.flowOn(dispatcher)
+
+
+    override fun getProductByIdStream(id: Int): Flow<ToDoObject?> =
+        ToDoDao.getProductByIdStream(id).map{localItem -> localItem?.toToDo()}.flowOn(dispatcher)
 
 
     override suspend fun updateToDo(toDo: ToDoObject){
@@ -84,11 +89,26 @@ class LocalRepository(
         }
     }
 
-//    override suspend fun finishDoneToDo(){
-//        externalScope.launch(dispatcher) {
-//            ToDoDao.finishDoneToDo()
-//        }
-//    }
+    override suspend fun finishDoneToDo(){
+        externalScope.launch(dispatcher) {
+            ToDoDao.finishDoneToDo()
+        }
+    }
+
+    override suspend fun insertToDo(toDo: ToDoObject){
+        externalScope.launch(dispatcher) {
+            ToDoDao.insertToDo(toDo.toLocal())
+        }
+    }
+
+    override suspend fun addNewToDo(): Int =
+        withContext(Dispatchers.IO){
+            ToDoDao.addNewObject()
+        }
+
+
+
+
 }
 
 
