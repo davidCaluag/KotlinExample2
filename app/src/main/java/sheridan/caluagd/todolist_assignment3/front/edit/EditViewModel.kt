@@ -21,6 +21,7 @@ class EditViewModel @Inject constructor(
     private val toDoRepository: ToDoRepository
 ): ToDoFormViewModel() {
     private var toDoId: Int = checkNotNull(savedStateHandle[ToDoEditDestination.TODO_ID_ARG])
+    private var isEdit : Boolean = true
 
     init {
 
@@ -30,6 +31,7 @@ class EditViewModel @Inject constructor(
             toDoId = toDoRepository.addNewToDo() //Make a new object then point to it after.
             //THIS IS ACTUALLY SO BIG BRAINED
             //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+            isEdit = !isEdit
         }
             uiState = toDoRepository.getProductByIdStream(toDoId).filterNotNull().first().toToDoFormUiState(isEntryValid = true)
         }
@@ -42,5 +44,12 @@ class EditViewModel @Inject constructor(
         val formModel: ToDoFormModel= uiState.toDoFormModel
         if(formModel.isValid())
             toDoRepository.updateToDo(formModel.toToDo())
+    }
+
+    //Only available in edit.
+    fun deleteProduct(id: Int) = viewModelScope.launch{
+
+        if(isEdit) //This might be bad-coding.
+            toDoRepository.deleteToDoById(id)
     }
 }
