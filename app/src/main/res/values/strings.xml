@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ToDoList_Assignment3</string>
+    <string name="app_name">To-Do List Assignment 3</string>
     <string name="list_title">ToDo List</string>
     <string name="edit_todo_title">ToDo Edit</string>
     <string name="push_button_label">Push</string>

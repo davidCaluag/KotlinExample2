@@ -47,9 +47,7 @@ import sheridan.caluagd.todolist_assignment3.common.formatDate
 import sheridan.caluagd.todolist_assignment3.common.formatTime
 import sheridan.caluagd.todolist_assignment3.domain.Category
 import java.util.Calendar
-import java.util.Currency
 import java.util.Date
-import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -63,11 +61,103 @@ fun ToDoForm(toDoFormModel: ToDoFormModel,
              enabled : Boolean = true,
              modifier: Modifier = Modifier
 ) {
-    var showDatePicker by rememberSaveable { mutableStateOf(false) }
-    var showTimePicker by rememberSaveable { mutableStateOf(false) }
+    var showCreatedDatePicker by rememberSaveable { mutableStateOf(false) }
+    var showCreatedTimePicker by rememberSaveable { mutableStateOf(false) }
+    var showDueDatePicker by rememberSaveable { mutableStateOf(false) }
+    var showDueTimePicker by rememberSaveable { mutableStateOf(false) }
+
+    if (showDueDatePicker) {
+        val day: Calendar = Calendar.getInstance().apply {
+            timeInMillis = toDoFormModel.due.time
+        }
+        val zoneOffset = day.timeZone.getOffset(day.time.time)
+        val datePickerState = rememberDatePickerState(
+            initialSelectedDateMillis = day.timeInMillis + zoneOffset,
+            yearRange = 2024..2027
+        )
+        DatePickerDialog(
+            onDismissRequest = {
+                showDueDatePicker = false
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        val selected: Calendar = Calendar.getInstance().apply {
+                            timeInMillis = datePickerState.selectedDateMillis!! - zoneOffset
+                        }
+                        val calendar: Calendar = Calendar.getInstance().apply {
+                            timeInMillis = toDoFormModel.due.time
+                            set(
+                                selected.get(Calendar.YEAR),
+                                selected.get(Calendar.MONTH),
+                                selected.get(Calendar.DAY_OF_MONTH)
+                            )
+                        }
+                        onDueChange(calendar.time)
+                        showDueDatePicker = false
+                    }
+                ) {
+                    Text(text = "Okay")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showDueDatePicker = false
+                    }
+                ) {
+                    Text(text = "Cancel")
+                }
+            }
+        ) {
+            DatePicker(
+                state = datePickerState
+            )
+        }
+    }
+
+    // time picker component
+    if (showDueTimePicker) {
+        val calendar: Calendar = Calendar.getInstance().apply { time = toDoFormModel.due }
+        val timePickerState = rememberTimePickerState(
+            initialHour = calendar.get(Calendar.HOUR_OF_DAY),
+            initialMinute = calendar.get(Calendar.MINUTE),
+            is24Hour = false
+        )
+        TimePickerDialog(
+            onDismissRequest = {
+                showDueTimePicker = false
+            },
+            confirmButton = {
+                TextButton(
+                    onClick = {
+                        with(calendar){
+                            set(Calendar.HOUR_OF_DAY, timePickerState.hour)
+                            set(Calendar.MINUTE, timePickerState.minute)
+                        }
+                        onDueChange(calendar.time)
+                        showDueTimePicker = false
+                    }
+                ) {
+                    Text(text = stringResource(R.string.ok))
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = {
+                        showDueTimePicker = false
+                    }
+                ) {
+                    Text(text = "cancel")
+                }
+            }
+        ) {
+            TimePicker(state = timePickerState)
+        }
+    }
 
     // date picker component
-    if (showDatePicker) {
+    if (showCreatedDatePicker) {
         val day: Calendar = Calendar.getInstance().apply {
             timeInMillis = toDoFormModel.date.time
         }
@@ -78,7 +168,7 @@ fun ToDoForm(toDoFormModel: ToDoFormModel,
         )
         DatePickerDialog(
             onDismissRequest = {
-                showDatePicker = false
+                showCreatedDatePicker = false
             },
             confirmButton = {
                 TextButton(
@@ -95,7 +185,7 @@ fun ToDoForm(toDoFormModel: ToDoFormModel,
                             )
                         }
                         onDateChange(calendar.time)
-                        showDatePicker = false
+                        showCreatedDatePicker = false
                     }
                 ) {
                     Text(text = "Okay")
@@ -104,7 +194,7 @@ fun ToDoForm(toDoFormModel: ToDoFormModel,
             dismissButton = {
                 TextButton(
                     onClick = {
-                        showDatePicker = false
+                        showCreatedDatePicker = false
                     }
                 ) {
                     Text(text = "Cancel")
@@ -118,7 +208,7 @@ fun ToDoForm(toDoFormModel: ToDoFormModel,
     }
 
     // time picker component
-    if (showTimePicker) {
+    if (showCreatedTimePicker) {
         val calendar: Calendar = Calendar.getInstance().apply { time = toDoFormModel.date }
         val timePickerState = rememberTimePickerState(
             initialHour = calendar.get(Calendar.HOUR_OF_DAY),
@@ -127,7 +217,7 @@ fun ToDoForm(toDoFormModel: ToDoFormModel,
         )
         TimePickerDialog(
             onDismissRequest = {
-                showTimePicker = false
+                showCreatedTimePicker = false
             },
             confirmButton = {
                 TextButton(
@@ -137,7 +227,7 @@ fun ToDoForm(toDoFormModel: ToDoFormModel,
                             set(Calendar.MINUTE, timePickerState.minute)
                         }
                         onDateChange(calendar.time)
-                        showTimePicker = false
+                        showCreatedTimePicker = false
                     }
                 ) {
                     Text(text = stringResource(R.string.ok))
@@ -146,7 +236,7 @@ fun ToDoForm(toDoFormModel: ToDoFormModel,
             dismissButton = {
                 TextButton(
                     onClick = {
-                        showTimePicker = false
+                        showCreatedTimePicker = false
                     }
                 ) {
                     Text(text = "cancel")
@@ -220,16 +310,31 @@ fun ToDoForm(toDoFormModel: ToDoFormModel,
         Row(
             horizontalArrangement = Arrangement.SpaceAround,
             modifier = Modifier.fillMaxWidth()
-        ) {
+        ) {Text("Date created: ", style = MaterialTheme.typography.titleSmall)
             OutlinedButton(
-                onClick = { showDatePicker = true }
+                onClick = { showCreatedDatePicker = true }
             ) {
                 Text(text = formatDate(toDoFormModel.date))
             }
             OutlinedButton(
-                onClick = { showTimePicker = true }
+                onClick = { showCreatedTimePicker = true }
             ) {
                 Text(text = formatTime(toDoFormModel.date))
+            }
+        }
+        Row(
+            horizontalArrangement = Arrangement.SpaceAround,
+            modifier = Modifier.fillMaxWidth()
+        ) {Text("Due Date: ", style = MaterialTheme.typography.titleSmall)
+            OutlinedButton(
+                onClick = { showDueDatePicker = true }
+            ) {
+                Text(text = formatDate(toDoFormModel.due))
+            }
+            OutlinedButton(
+                onClick = { showDueTimePicker = true }
+            ) {
+                Text(text = formatTime(toDoFormModel.due))
             }
         }
         if (enabled) {
@@ -316,7 +421,7 @@ fun RatingInput(
         factory = { context ->
             RatingBar(context).apply {
                 stepSize = 1.0f
-                numStars = 5
+                numStars = 3
             }
         },
         update = { ratingBar ->
@@ -367,7 +472,7 @@ class ConditionSpinnerAdapter(
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        onConditionChange(Category.SOMETHING_ELSE)
+        onConditionChange(Category.OTHER)
     }
 }
 
