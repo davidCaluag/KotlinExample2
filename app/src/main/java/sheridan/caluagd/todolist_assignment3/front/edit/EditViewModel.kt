@@ -21,17 +21,20 @@ class EditViewModel @Inject constructor(
     private val toDoRepository: ToDoRepository
 ): ToDoFormViewModel() {
     private var toDoId: Int = checkNotNull(savedStateHandle[ToDoEditDestination.TODO_ID_ARG])
-    private var isEdit : Boolean = true
+    var isEdit : Boolean = false
 
     init {
         viewModelScope.launch{
-        if(toDoId.equals(null)){
-            toDoId = toDoRepository.addNewToDo() //Make a new object then point to it after.
-            //THIS IS ACTUALLY SO BIG BRAINED
-            //AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-            isEdit = !isEdit
+        if(toDoId < 0){
+            toDoId = toDoRepository.addNewToDo()
         }
-            uiState = toDoRepository.getProductByIdStream(toDoId).filterNotNull().first().toToDoFormUiState(isEntryValid = true)
+            else{
+                isEdit = !isEdit
+        }
+            uiState = toDoRepository.getProductByIdStream(toDoId)
+                .filterNotNull()
+                .first()
+                .toToDoFormUiState(isEntryValid = true)
         }
     }
 
@@ -42,9 +45,9 @@ class EditViewModel @Inject constructor(
     }
 
     //Only available in edit.
-    fun deleteProduct(id: Int) = viewModelScope.launch{
+    fun deleteProduct() = viewModelScope.launch{
 
         if(isEdit) //This might be bad-coding.
-            toDoRepository.deleteToDoById(id)
+            toDoRepository.deleteToDoById(toDoId)
     }
 }

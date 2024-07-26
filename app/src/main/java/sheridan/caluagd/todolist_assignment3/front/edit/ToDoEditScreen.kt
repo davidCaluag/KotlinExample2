@@ -1,6 +1,5 @@
 package sheridan.caluagd.todolist_assignment3.front.edit
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -14,19 +13,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import sheridan.caluagd.todolist_assignment3.front.Form.ToDoFormBody
+import sheridan.caluagd.todolist_assignment3.navigation.ToDoEditDestination
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ToDoEditScreen(navigateBack: () -> Unit,
-                   navigateUp : () -> Unit,
-                   viewModel: EditViewModel,
-                   modifier: Modifier = Modifier,
-                   scrollBehavior: TopAppBarScrollBehavior? = null
+fun ToDoEditScreen(
+    navigateBack: () -> Unit,
+    navigateUp : () -> Unit,
+    viewModel: EditViewModel,
+    modifier: Modifier = Modifier,
+    scrollBehavior: TopAppBarScrollBehavior? = null
 ){
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { "To Do Edit" },
+                title = { stringResource(id = ToDoEditDestination.titleRes) },
                 modifier = modifier,
                 scrollBehavior = scrollBehavior,
                 navigationIcon = {
@@ -53,6 +54,8 @@ fun ToDoEditScreen(navigateBack: () -> Unit,
                 viewModel.updateProduct()
                 navigateBack()
             },
+            isEdit = viewModel.isEdit,
+            onDeleteClick = viewModel::deleteProduct,
             modifier = Modifier.padding(innerPadding)
         )
     }

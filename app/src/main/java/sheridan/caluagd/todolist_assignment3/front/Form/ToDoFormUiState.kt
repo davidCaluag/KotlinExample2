@@ -11,6 +11,7 @@ data class ToDoFormUiState(
 fun ToDoFormUiState.save(newFormModel : ToDoFormModel, isEntryValid: Boolean?){
 
 }
+
 fun ToDoObject.toToDoFormUiState(isEntryValid: Boolean = false): ToDoFormUiState {
     return ToDoFormUiState(
         toDoFormModel = this.toToDoFormModel(),
