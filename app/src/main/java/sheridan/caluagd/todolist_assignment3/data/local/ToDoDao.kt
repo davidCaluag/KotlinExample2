@@ -30,13 +30,6 @@ interface ToDoDao {
     @Query("SELECT MAX(id) FROM ToDo")
     suspend fun getMaxId(): Int
 
-    @Transaction
-    suspend fun addNewObject(): Int{ //Return the id
-        val maxId = getMaxId()
-        insertToDo(ToDoObject(id = maxId).toLocal())
-        return maxId
-    }
-
     //the checklist (isDone) PROBLEM
     @Query("UPDATE ToDo SET isDone =:isDone WHERE id =:id")
     suspend fun updateProgress(id: Int, isDone: Boolean)
@@ -70,5 +63,11 @@ interface ToDoDao {
     @Insert
     suspend fun insertToDo(toDo: LocalToDoObject)
 
+    @Transaction
+    suspend fun addNewObject(): Int{ //Return the id
+        val maxId = getMaxId()
+        insertToDo(ToDoObject(id = maxId).toLocal())
+        return maxId
+    }
 
 }

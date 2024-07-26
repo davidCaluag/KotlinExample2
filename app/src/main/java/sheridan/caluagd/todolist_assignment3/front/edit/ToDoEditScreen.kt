@@ -12,6 +12,7 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import sheridan.caluagd.todolist_assignment3.front.Form.ToDoFormBody
 import sheridan.caluagd.todolist_assignment3.navigation.ToDoEditDestination
 
@@ -40,7 +41,7 @@ fun ToDoEditScreen(
                 }
             )
         },
-        modifier = modifier
+        modifier = modifier.padding(8.dp)
     ) { innerPadding ->
         ToDoFormBody(
             toDoFormUiState = viewModel.uiState,

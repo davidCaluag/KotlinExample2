@@ -134,7 +134,7 @@ private fun ListItem(listItemModel: ToDoListItemModel, onToggleSelect: (ToDoList
         Column(verticalArrangement = Arrangement.spacedBy(8.dp), modifier = modifier
             .fillMaxWidth()
             .padding(8.dp)){
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center, modifier = modifier.fillMaxWidth()){
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp), modifier = modifier.fillMaxWidth()){
                 Checkbox(checked = listItemModel.isDone, onCheckedChange = {onToggleSelect(listItemModel)})
                 Column(verticalArrangement = Arrangement.spacedBy(8.dp)){
                     Row(verticalAlignment = Alignment.CenterVertically,
@@ -172,7 +172,7 @@ fun RatingDisplay(rating: Int, modifier: Modifier = Modifier) {
     ) {
         for(i: Int in 1..5){
             Image(
-                modifier = Modifier.size(32.dp),
+                modifier = Modifier.size(8.dp),
                 painter = painterResource(
                     if(rating >= i) R.drawable.green_star else R.drawable.grey_star
                 ),
