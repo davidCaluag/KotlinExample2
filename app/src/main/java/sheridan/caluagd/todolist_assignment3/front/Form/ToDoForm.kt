@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -38,14 +37,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import sheridan.caluagd.todolist_assignment3.R
 import sheridan.caluagd.todolist_assignment3.common.formatDate
 import sheridan.caluagd.todolist_assignment3.common.formatTime
 import sheridan.caluagd.todolist_assignment3.domain.Category
@@ -63,9 +60,6 @@ fun ToDoForm(toDoFormModel: ToDoFormModel,
              onCategoryChange: (Category) -> Unit,
              onDateChange: (Date) -> Unit,
              onDueChange: (Date) -> Unit,
-             onSaveClick: () -> Unit,
-             isEdit : Boolean,
-             onDeleteClick: () -> Unit,
              enabled : Boolean = true,
              modifier: Modifier = Modifier
 ) {
@@ -155,7 +149,7 @@ fun ToDoForm(toDoFormModel: ToDoFormModel,
                         showTimePicker = false
                     }
                 ) {
-                    Text(text = stringResource(R.string.cancel))
+                    Text(text = "cancel")
                 }
             }
         ) {
@@ -195,27 +189,13 @@ fun ToDoForm(toDoFormModel: ToDoFormModel,
             enabled = enabled,
             singleLine = true
         )
-        OutlinedTextField(
-            value = toDoFormModel.quantity,
-            onValueChange = onQuantityChange,
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            label = { Text(stringResource(R.string.quantity_req)) },
-            colors = OutlinedTextFieldDefaults.colors(
-                focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-                disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
-            ),
-            modifier = Modifier.fillMaxWidth(),
-            enabled = enabled,
-            singleLine = true
-        )
         Row(
             horizontalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_small)),
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             Text(
-                text = stringResource(id = R.string.rating),
+                text = "Priority",
                 style = MaterialTheme.typography.bodyLarge
             )
             RatingInput(
@@ -229,7 +209,7 @@ fun ToDoForm(toDoFormModel: ToDoFormModel,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
             Text(
-                text = stringResource(id = R.string.condition),
+                text = "Category",
                 style = MaterialTheme.typography.bodyLarge
             )
             //Category Input
@@ -255,7 +235,7 @@ fun ToDoForm(toDoFormModel: ToDoFormModel,
         }
         if (enabled) {
             Text(
-                text = stringResource(R.string.required_fields),
+                text = "Required",
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_medium))
             )

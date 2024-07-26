@@ -32,9 +32,6 @@ fun ToDoFormBody(
         onCategoryChange = onCategoryChange,
         onDueChange = onDueChange,
         onDateChange = onDateChange,
-        isEdit = isEdit,
-        onDeleteClick = onDeleteClick,
-        onSaveClick = onSaveClick,
         modifier = Modifier.fillMaxWidth()
     )
     Button(

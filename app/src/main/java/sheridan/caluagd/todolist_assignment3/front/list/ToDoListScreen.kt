@@ -1,5 +1,6 @@
 package sheridan.caluagd.todolist_assignment3.front.list
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -7,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
@@ -30,12 +32,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import sheridan.caluagd.todolist_assignment3.R
 import sheridan.caluagd.todolist_assignment3.common.ListTopAppBar
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -136,7 +143,9 @@ private fun ListItem(listItemModel: ToDoListItemModel, onToggleSelect: (ToDoList
                     {
                         Text(text = listItemModel.title,
                             style = MaterialTheme.typography.titleLarge)
-                        TODO("Rating Display")
+                        RatingDisplay(
+                            rating = listItemModel.priority.toInt()
+                        )
                     }
 
                     Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()){
@@ -147,6 +156,28 @@ private fun ListItem(listItemModel: ToDoListItemModel, onToggleSelect: (ToDoList
                     Text("Due Date: ${listItemModel.date}")
                 }
             }
+        }
+
+    }
+}
+
+@Composable
+fun RatingDisplay(rating: Int, modifier: Modifier = Modifier) {
+    val displayDescription = pluralStringResource(R.plurals.number_of_stars, count = rating)
+    Row(
+        // Content description is added here to support accessibility
+        modifier.semantics {
+            contentDescription = displayDescription
+        }
+    ) {
+        for(i: Int in 1..5){
+            Image(
+                modifier = Modifier.size(32.dp),
+                painter = painterResource(
+                    if(rating >= i) R.drawable.green_star else R.drawable.grey_star
+                ),
+                contentDescription = null
+            )
         }
     }
 }
