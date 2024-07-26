@@ -9,6 +9,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import sheridan.caluagd.todolist_assignment3.domain.Category
@@ -51,16 +52,18 @@ fun ToDoFormBody(
         ) {
             Text(text = "Save")
         }
+        
+        DeleteButton(onDeleteClick = onDeleteClick, isEnabled = isEdit, shape = MaterialTheme.shapes.small)
+        
 
-        Button(
-            onClick = onDeleteClick,
-            enabled = isEdit,
-            shape = MaterialTheme.shapes.small,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text(text = "Delete")
-        }
 
+    }
+}
+
+@Composable
+fun DeleteButton(onDeleteClick: () -> Unit, isEnabled: Boolean, shape: Shape, modifier: Modifier = Modifier.fillMaxWidth()){
+    Button(onClick = onDeleteClick, enabled = isEnabled, shape = shape, modifier = modifier){
+        Text("Delete")
 
     }
 }

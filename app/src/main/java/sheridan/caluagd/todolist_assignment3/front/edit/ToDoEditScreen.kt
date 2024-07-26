@@ -56,7 +56,8 @@ fun ToDoEditScreen(
                 navigateBack()
             },
             isEdit = viewModel.isEdit,
-            onDeleteClick = viewModel::deleteProduct,
+            onDeleteClick = { viewModel.updateProduct()
+                               navigateBack()},
             modifier = Modifier.padding(innerPadding)
         )
     }
