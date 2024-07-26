@@ -17,7 +17,7 @@ interface ToDoDao {
 
 
     //Get
-    @Query("SELECT * FROM ToDo ORDER BY isDone DESC")
+    @Query("SELECT * FROM ToDo ORDER BY isDone ASC")
     fun getAllToDo(): Flow<List<LocalToDoObject>>
 
     @Query("SELECT * from ToDo WHERE id = :id")
@@ -65,7 +65,7 @@ interface ToDoDao {
 
     @Transaction
     suspend fun addNewObject(): Int{ //Return the id
-        val maxId = getMaxId()
+        val maxId = getMaxId() + 1
         insertToDo(ToDoObject(id = maxId).toLocal())
         return maxId
     }

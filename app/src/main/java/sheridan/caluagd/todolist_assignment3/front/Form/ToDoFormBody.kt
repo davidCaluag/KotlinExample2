@@ -10,7 +10,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.dp
 import sheridan.caluagd.todolist_assignment3.domain.Category
 import java.util.Date
@@ -54,7 +53,6 @@ fun ToDoFormBody(
         }
         
         DeleteButton(onDeleteClick = onDeleteClick, isEnabled = isEdit, shape = MaterialTheme.shapes.small)
-        
 
 
     }

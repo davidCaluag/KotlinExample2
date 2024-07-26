@@ -184,7 +184,6 @@ fun ToDoForm(toDoFormModel: ToDoFormModel,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 disabledContainerColor = MaterialTheme.colorScheme.secondaryContainer,
             ),
-            leadingIcon = { Text(Currency.getInstance(Locale.getDefault()).symbol) },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
@@ -240,6 +239,14 @@ fun ToDoForm(toDoFormModel: ToDoFormModel,
                 modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_medium))
             )
         }
+        Column(){
+            Text("Information", style = MaterialTheme.typography.titleMedium)
+            Text("Title: ${toDoFormModel.title}" +
+                    "Memo : ${toDoFormModel.memo}" +
+                    "Category: ${toDoFormModel.category}" +
+                    "Saveable: ${toDoFormModel.isValid()}")
+        }
+
     }
 }
 
@@ -363,3 +370,4 @@ class ConditionSpinnerAdapter(
         onConditionChange(Category.SOMETHING_ELSE)
     }
 }
+

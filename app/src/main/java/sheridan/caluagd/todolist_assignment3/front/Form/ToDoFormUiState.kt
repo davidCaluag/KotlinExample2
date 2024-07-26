@@ -6,6 +6,8 @@ data class ToDoFormUiState(
     val toDoFormModel: ToDoFormModel = ToDoFormModel(),
     val isEntryValid: Boolean = false
 ){
+    fun updateIsEntry(isEntry: Boolean) = ToDoFormUiState(toDoFormModel = this.toDoFormModel,
+                isEntryValid = isEntry)
 
 }
 fun ToDoFormUiState.save(newFormModel : ToDoFormModel, isEntryValid: Boolean?){
@@ -18,4 +20,7 @@ fun ToDoObject.toToDoFormUiState(isEntryValid: Boolean = false): ToDoFormUiState
         isEntryValid = isEntryValid
     )
 }
+
+
+
 

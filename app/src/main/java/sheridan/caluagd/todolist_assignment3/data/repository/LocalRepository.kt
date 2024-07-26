@@ -102,7 +102,7 @@ class LocalRepository(
     }
 
     override suspend fun addNewToDo(): Int =
-        withContext(Dispatchers.IO){
+        withContext(dispatcher){
             ToDoDao.addNewObject()
         }
 

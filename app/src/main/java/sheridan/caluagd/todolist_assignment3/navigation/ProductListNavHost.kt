@@ -25,7 +25,7 @@ fun ProductListNavHost(navHostController: NavHostController, modifier: Modifier 
 
         composable(route = ToDoListDestination.route){
             val viewModel: ListViewModel = hiltViewModel()
-            ToDoListScreen(navigateToAdd = { navHostController.navigate("${ToDoEditDestination.route}/${(-1)}") }, navigateToEdit = { id -> navHostController.navigate("${ToDoEditDestination.route}/${id}") }, viewModel = viewModel)
+            ToDoListScreen(navigateToAdd = { navHostController.navigate("${ToDoEditDestination.route}/${(999)}") }, navigateToEdit = { id -> navHostController.navigate("${ToDoEditDestination.route}/${id}") }, viewModel = viewModel)
         }
 
         composable(route = ToDoEditDestination.routeWithArgs,

@@ -14,7 +14,8 @@ abstract class ToDoFormViewModel : ViewModel() {
 
     fun onTitleChange(newTitle: String){
         val newFormModel = uiState.toDoFormModel.copy(title = newTitle)
-        uiState.copy(
+
+        uiState = uiState.copy(
             toDoFormModel = newFormModel,
             isEntryValid = newFormModel.isValid()
         )
@@ -22,7 +23,7 @@ abstract class ToDoFormViewModel : ViewModel() {
 
     fun onMemoChange(newMemo: String){
         val newFormModel = uiState.toDoFormModel.copy(memo = newMemo)
-        uiState.copy(
+        uiState = uiState.copy(
             toDoFormModel = newFormModel,
             isEntryValid = newFormModel.isValid()
         )
@@ -30,39 +31,29 @@ abstract class ToDoFormViewModel : ViewModel() {
 
     fun onPriorityChange(newPriority: Float){
         val newFormModel = uiState.toDoFormModel.copy(priority = newPriority)
-        uiState.copy(
+        uiState = uiState.copy(
             toDoFormModel = newFormModel
         )
     }
 
     fun onCategoryChange(newCategory: Category){
         val newFormModel = uiState.toDoFormModel.copy(category = newCategory)
-        uiState.copy(
+        uiState = uiState.copy(
             toDoFormModel = newFormModel
         )
     }
 
     fun onDateChange(newDate: Date){
         val newFormModel = uiState.toDoFormModel.copy(date = newDate)
-        uiState.copy(
-            toDoFormModel = newFormModel,
-            isEntryValid = newFormModel.isValid()
+        uiState = uiState.copy(
+            toDoFormModel = newFormModel
         )
     }
 
     fun onDueChange(newDate: Date){
         val newFormModel = uiState.toDoFormModel.copy(due = newDate)
-        uiState.copy(
-            toDoFormModel = newFormModel,
-            isEntryValid = newFormModel.isValid()
+        uiState = uiState.copy(
+            toDoFormModel = newFormModel
         )
     }
-
-
-
-
-
-
-
-
 }

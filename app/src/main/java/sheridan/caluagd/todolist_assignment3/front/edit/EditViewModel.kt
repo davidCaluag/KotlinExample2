@@ -20,17 +20,22 @@ class EditViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val toDoRepository: ToDoRepository
 ): ToDoFormViewModel() {
+
     private var toDoId: Int = checkNotNull(savedStateHandle[ToDoEditDestination.TODO_ID_ARG])
     var isEdit : Boolean = false
 
     init {
+
+
+
         viewModelScope.launch{
-        if(toDoId < 0){
-            toDoId = toDoRepository.addNewToDo()
-        }
-            else{
+            if(toDoId == 999){
+                toDoId = toDoRepository.addNewToDo()
+                println(toDoId)
+            }else{
                 isEdit = !isEdit
-        }
+            }
+
             uiState = toDoRepository.getProductByIdStream(toDoId)
                 .filterNotNull()
                 .first()

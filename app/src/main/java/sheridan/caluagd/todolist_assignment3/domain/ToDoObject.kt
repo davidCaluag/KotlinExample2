@@ -8,8 +8,8 @@ enum class Category{
 }
 data class ToDoObject(
     val id: Int = 0,
-    val title : String = "No Title",
-    val memo : String = "No Memo",
+    val title : String = "Title",
+    val memo : String = "Memo",
     val priority : Float = 0F,
     val category : Category = Category.SOMETHING_ELSE,
     val isDone : Boolean = false,

@@ -6,15 +6,15 @@ import java.util.Date
 
 data class ToDoFormModel(
     val id: Int = 0,
-    val title : String = "No Title",
-    val memo : String = "No Memo",
+    val title : String = "",
+    val memo : String = "",
     val priority : Float = 0.0F,
-    val category : Category = Category.SOMETHING_ELSE,
+    val category : Category = Category.PERSONAL,
     val isDone : Boolean = false,
     val date: Date = Date(),
     val due: Date = Date())
 {
-    fun isValid():Boolean = title.isEmpty() && memo.isEmpty() && (due == date)
+    fun isValid():Boolean = title.isNotBlank() && memo.isNotBlank()
 
     fun toToDo(): ToDoObject = ToDoObject(
         id = (id),
