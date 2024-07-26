@@ -24,8 +24,6 @@ class EditViewModel @Inject constructor(
     private var isEdit : Boolean = true
 
     init {
-
-
         viewModelScope.launch{
         if(toDoId.equals(null)){
             toDoId = toDoRepository.addNewToDo() //Make a new object then point to it after.
@@ -35,9 +33,6 @@ class EditViewModel @Inject constructor(
         }
             uiState = toDoRepository.getProductByIdStream(toDoId).filterNotNull().first().toToDoFormUiState(isEntryValid = true)
         }
-
-
-
     }
 
     fun updateProduct() = viewModelScope.launch{
