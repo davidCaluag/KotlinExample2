@@ -1,6 +1,8 @@
 package sheridan.caluagd.todolist_assignment3.front.list
 
 
+import androidx.compose.material3.CardColors
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel

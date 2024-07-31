@@ -56,6 +56,33 @@ import java.text.DateFormat
 import java.time.Instant
 import java.util.Date
 
+
+object typeOfCard{
+
+    val availableCard : CardColors = CardColors(
+        containerColor = Color.Gray,
+        contentColor = Color.White,
+        disabledContentColor = Color.Red,
+        disabledContainerColor = Color.Red)
+
+    val unavailableCard : CardColors = CardColors(
+        containerColor = Color.Red,
+        contentColor = Color.White,
+        disabledContentColor = Color.Red,
+        disabledContainerColor = Color.Red
+
+    )
+    val finishedCard : CardColors = CardColors(
+        containerColor = Color.Cyan,
+        contentColor = Color.White,
+        disabledContentColor = Color.Red,
+        disabledContainerColor = Color.Red
+
+    )
+
+}
+
+
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -154,35 +181,15 @@ private fun ToDoList(toDoList: List<ToDoListItemModel>,
     }
 }
 
-val availableCard : CardColors = CardColors(
-    containerColor = Color.Gray,
-    contentColor = Color.White,
-    disabledContentColor = Color.Red,
-    disabledContainerColor = Color.Red)
-
-val unavailableCard : CardColors = CardColors(
-    containerColor = Color.Red,
-    contentColor = Color.White,
-    disabledContentColor = Color.Red,
-    disabledContainerColor = Color.Red
-
-)
-val finishedCard : CardColors = CardColors(
-    containerColor = Color.Cyan,
-    contentColor = Color.White,
-    disabledContentColor = Color.Red,
-    disabledContainerColor = Color.Red
-
-)
 
 fun isAvailable(due: Date, today: Date, isFinished: Boolean): CardColors{
-        if(isFinished)
-            return finishedCard
+    
+    if(isFinished)
+        return typeOfCard.finishedCard
+    if(due.after(today))
+        return typeOfCard.availableCard
 
-        if(due.after(today))
-            return availableCard
-
-            return unavailableCard
+    return typeOfCard.unavailableCard
 }
 
 @Composable
