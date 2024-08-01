@@ -80,6 +80,9 @@ object typeOfCard{
 
     )
 
+
+    val _today: Date = Date.from(Instant.now())
+
 }
 
 
@@ -89,12 +92,12 @@ object typeOfCard{
 fun ToDoListScreen(
     navigateToAdd: () -> Unit,
     navigateToEdit: (Int) -> Unit,
+    navigateToDetail : (Int) -> Unit,
     viewModel: ListViewModel,
     modifier: Modifier = Modifier
 ){
     val listUiState: ToDoUiState by viewModel.toDoListUiState.collectAsState()
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    val _today: Date = Date.from(Instant.now())
 
     Scaffold(
         modifier = modifier,//.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -109,7 +112,7 @@ fun ToDoListScreen(
             FloatingActionButton(
                 onClick = navigateToAdd,
                 containerColor = colorResource(id = R.color.black),
-                contentColor     = colorResource(id = R.color.white),
+                contentColor = colorResource(id = R.color.white),
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier.padding(20.dp))
             {
@@ -119,12 +122,12 @@ fun ToDoListScreen(
     ){
         bleh ->
             ListBody(toDoList = listUiState.toDoList,
-                onItemClick = navigateToEdit,
+                onItemClick = navigateToDetail,
                 deleteFinishedToDo = viewModel::deleteDoneToDo,
                 onToggleSelect = viewModel::toggleProgress,
                 modifier = Modifier
                     .padding(bleh),
-                today = _today
+                today = typeOfCard._today
             )
 
     }

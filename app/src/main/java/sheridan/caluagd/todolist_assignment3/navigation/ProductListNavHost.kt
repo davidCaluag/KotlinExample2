@@ -9,6 +9,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import sheridan.caluagd.todolist_assignment3.front.details.ToDoDetailScreen
+import sheridan.caluagd.todolist_assignment3.front.details.ToDoDetailViewModel
 import sheridan.caluagd.todolist_assignment3.front.edit.EditViewModel
 import sheridan.caluagd.todolist_assignment3.front.edit.ToDoEditScreen
 import sheridan.caluagd.todolist_assignment3.front.list.ListViewModel
@@ -25,7 +27,15 @@ fun ProductListNavHost(navHostController: NavHostController, modifier: Modifier 
 
         composable(route = ToDoListDestination.route){
             val viewModel: ListViewModel = hiltViewModel()
-            ToDoListScreen(navigateToAdd = { navHostController.navigate("${ToDoEditDestination.route}/${(999)}") }, navigateToEdit = { id -> navHostController.navigate("${ToDoEditDestination.route}/${id}") }, viewModel = viewModel)
+            ToDoListScreen(navigateToAdd = { navHostController.navigate("${ToDoEditDestination.route}/${(999)}") }, navigateToDetail = {id -> navHostController.navigate("${ToDoDetailDestination.route}/${id}")} ,navigateToEdit = { id -> navHostController.navigate("${ToDoEditDestination.route}/${id}") }, viewModel = viewModel)
+        }
+
+        composable(route = ToDoDetailDestination.routeWithArgs,
+            arguments = listOf(navArgument(ToDoDetailDestination.TODO_ID_ARG) {
+                type = NavType.IntType
+            })){
+            val viewModel: ToDoDetailViewModel = hiltViewModel()
+            ToDoDetailScreen( modifier = Modifier, viewModel = viewModel, navigateUp = {navHostController.navigate(ToDoListDestination.route)}, edit = { id -> navHostController.navigate("${ToDoEditDestination.route}/${id}") })
         }
 
         composable(route = ToDoEditDestination.routeWithArgs,

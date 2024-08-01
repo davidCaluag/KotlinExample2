@@ -344,13 +344,13 @@ fun ToDoForm(toDoFormModel: ToDoFormModel,
                 modifier = Modifier.padding(start = dimensionResource(id = R.dimen.padding_medium))
             )
         }
-        Column(){
-            Text("Information", style = MaterialTheme.typography.titleMedium)
-            Text("Title: ${toDoFormModel.title}" +
-                    "Memo : ${toDoFormModel.memo}" +
-                    "Category: ${toDoFormModel.category}" +
-                    "Saveable: ${toDoFormModel.isValid()}")
-        }
+//        Column(){
+//            Text("Information", style = MaterialTheme.typography.titleMedium)
+//            Text("Title: ${toDoFormModel.title}" +
+//                    "Memo : ${toDoFormModel.memo}" +
+//                    "Category: ${toDoFormModel.category}" +
+//                    "Saveable: ${toDoFormModel.isValid()}")
+//        }
 
     }
 }

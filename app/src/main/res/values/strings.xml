@@ -2,6 +2,7 @@
     <string name="app_name">To-Do List Assignment 3</string>
     <string name="list_title">ToDo List</string>
     <string name="edit_todo_title">ToDo Edit</string>
+    <string name="edit_todo_detail">ToDo Details</string>
     <string name="push_button_label">Push</string>
     <string name="pop_button_label">Pop</string>
     <string name="input_output_label">Input / Output</string>
