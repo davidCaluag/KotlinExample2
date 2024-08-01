@@ -79,9 +79,9 @@ fun ToDoDetailsBody(modifier: Modifier, uiState: ToDoDetailUiState, edit : (Int)
             RowDetail("memo", uiState.detailModel.memo)
             RowDetail("category", uiState.detailModel.category.name)
             RowDetail("Status", content = uiState.detailModel.isDone.toString())
-            RowDetail("Title", uiState.detailModel.title)
+            RowDetail("Priority", "${uiState.detailModel.priority} / 3")
             RowDetail("Date Created", formatDateTime(uiState.detailModel.date))
-            RowDetail("Date Due", formatDateTime(uiState.detailModel.due))
+            RowDetail("Date Due", formatDateTime    (uiState.detailModel.due))
         }
     }
 
@@ -89,7 +89,9 @@ fun ToDoDetailsBody(modifier: Modifier, uiState: ToDoDetailUiState, edit : (Int)
 
 @Composable
 fun RowDetail(title: String, content: String, modifier: Modifier = Modifier){
-    Row(modifier = modifier.padding(8.dp).fillMaxWidth()){
+    Row(modifier = modifier
+        .padding(8.dp)
+        .fillMaxWidth()){
         Text(title)
         Spacer(modifier = modifier.weight(1f))
         Text(content)
