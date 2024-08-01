@@ -47,7 +47,7 @@ fun ProductListNavHost(navHostController: NavHostController, modifier: Modifier 
 
             ToDoEditScreen(
                 navigateBack = { navHostController.navigate(ToDoListDestination.route) },
-                navigateUp = {navHostController.navigate(ToDoListDestination.route)},
+                navigateUp = {navHostController.popBackStack()},
                 viewModel = viewModel
                 )
         }
