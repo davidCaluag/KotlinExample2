@@ -48,6 +48,7 @@ import sheridan.caluagd.todolist_assignment3.common.formatTime
 import sheridan.caluagd.todolist_assignment3.domain.Category
 import java.util.Calendar
 import java.util.Date
+import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -420,14 +421,14 @@ fun RatingInput(
     AndroidView(
         factory = { context ->
             RatingBar(context).apply {
-                stepSize = 1.0f
+                stepSize = 1f
                 numStars = 3
             }
         },
         update = { ratingBar ->
             ratingBar.rating = rating
             ratingBar.setOnRatingBarChangeListener { _, _, _ ->
-                onRatingChange(ratingBar.rating)
+                onRatingChange(ratingBar.rating.roundToInt().toFloat())
             }
         },
         modifier = modifier

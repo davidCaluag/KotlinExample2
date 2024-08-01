@@ -3,6 +3,7 @@ package sheridan.caluagd.todolist_assignment3.front.details
 import sheridan.caluagd.todolist_assignment3.domain.Category
 import sheridan.caluagd.todolist_assignment3.domain.ToDoObject
 import java.util.Date
+import kotlin.math.roundToInt
 
 data class ToDoDetailUiState(val detailModel: ToDoDetailsModel)
 {
